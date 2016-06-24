@@ -2,10 +2,22 @@
 <html>
 <head>
 	<title>BellasJardin Wayback Machine Tool</title>
-	
+	<meta charset="utf-8">
+	<style>
+		div.input {
+		    border: 2px solid #6699FF;
+		    background-color: lightblue;
+		    padding-top: 20px;
+		    padding-right: 30px; 
+		    padding-bottom: 20px;
+		    padding-left: 10px;
+		}
+	</style>
+</head>
+
+<body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script>
-	
 		function clearFunction() {
 				console.log("keyup");
     			$("a#snapshoturl").text("");
@@ -23,8 +35,7 @@
 		    	alert ("No snapshot available for the entered inputs");
 		    }
 		};
-		
-			
+					
 		$(document).ready(function(){
 			// clear snapshot url given delete key
 			//$("#myurl").keyup(function() {
@@ -33,7 +44,6 @@
   			//	document.getElementById('myFrame').src = "";
 			//});
 			
-
 			$("button").click(function(){
 				var url = "http://archive.org/wayback/available"; 
 				var myurl = $("#myurl" ).val()
@@ -44,7 +54,7 @@
 				url = url + "?url=" + myurl + "&timestamp=" + timestamp;
 				console.log(url);
 				
-				//jsonp to bypass cross-domain 
+				//jsonp to work-around cross-domain 
 				var script = document.createElement("script");
 				script.type = 'text/javascript';
     			script.src = url + "&output=json&callback=processJSON";
@@ -52,17 +62,14 @@
 				
 				document.getElementsByTagName("head")[0].appendChild(script);
 				
-				/*
-				$.getJSON(url, function (data, status, response) {
-		        //	console.log ("status: " + status+ ", readyState: " + response.readyState);
-		        	
+				/* $.getJSON(url, function (data, status, response) {
+		        	//console.log ("status: " + status+ ", readyState: " + response.readyState);
 		  			if (response.status === 200 && response.readyState==4) {
-		    			console.log(data);
+		    			//console.log(data);
 		    			//console.log(response);	
 		    			
 		    			if (data["archived_snapshots"] && data.archived_snapshots["closest"] && 		
 		    			    data.archived_snapshots.closest["url"]) {   			
-			    			//console.log("wayback url: " + data.archived_snapshots.closest.url);
 			    			$("a#snapshoturl").text(data.archived_snapshots.closest.url);
 			    			$("a#snapshoturl").attr("href", data.archived_snapshots.closest.url);
 			    			document.getElementById('myFrame').src = data.archived_snapshots.closest.url;
@@ -70,35 +77,34 @@
 		    			else 
 		    				alert ("No snapshot available for the entered inputs");
 		  			}
-		         });
-		        */
+		         }); */
 		        
 			 }); //button
 		});//ready
-				
 	</script>
-</head>
-
-<body>
-	<h2>Wayback Machine</h2>
-	<p>Is a digital archive of information on the Internet created by the Internet Archive, a nonprofit organization. The service enables users to see archived versions of web pages across time. This tool uses the Wayback Machine APIs to query a snapshot of a website from a specified date.  It can be quite handly to view a snapshot of your Etsy shop, for example, at a given point in time.  Not limited to Etsy, this tool can be used for any website. </p>
-	<hr width="100%" color="#6699FF" size="6">
-	<form>
-		Enter any url, such as your Etsy shop url:
-		<input type="text" id="myurl" size=50 value="http://www.etsy.com/shop/BellasJardin" onkeyup="clearFunction()"/>
-	</form>
-	<br>
-	<form>
-		Enter a date (YYYYMMDD) for the nearest snapshot:
-		<input type="text" id="timestamp" size=10 value="20120101" onkeyup="clearFunction()" />
-	</form>
-	<br>
 	
-	<button>Get Snapshot</button>
-	<span style="margin-left: 2em;">Snapshot Url: <a id="snapshoturl" href="#nothing"></a></span>
-	<hr width="100%" color="#6699FF" size="6">
+	<h2>Wayback Machine Tool</h2>
+	<p>This tool uses the Wayback Machine APIs to query the closest snapshot of a website from a specified date.</p>
+	<p>Enter your information and click the "Get Snapshot" button. This will retrieve the url containing the snapshot.  If it exists, the "Snapshot Url" will be populated with the url.  You may open that url in the browser to view the snapshot, but the snapshot is also loaded in the bottom panel. </p>
+	
+	<!-- <div id="input" style="background-color:lightblue;text-align:left;border:2px solid #6699FF"> -->
+		<div class="input">
+		<!-- <hr width="100%" color="#6699FF" size="6"> -->
+		<form>
+			Enter any url, such as your Etsy shop url:
+			<input type="text" id="myurl" size=50 value="http://www.etsy.com/shop/BellasJardin" onkeyup="clearFunction()"/>
+		</form>
+		<br>
+		<form>
+			Enter a date (YYYYMMDD) for the nearest snapshot:
+			<input type="text" id="timestamp" size=10 value="20120101" onkeyup="clearFunction()" />
+		</form>
+		<br>
+		<button style="background-color:#6699FF" >Get Snapshot</button>
+		<span style="margin-left: 2em;">Snapshot Url: <a id="snapshoturl" href="#nothing"></a></span>
+	</div>
 	
 	<iframe src="" name="myFrame" width="100%" marginwidth="0" height="800" marginheight="0" align="middle" overflow="auto"  id="myFrame" frameborder="0"></iframe>
+	
 </body>
-
 </html>
