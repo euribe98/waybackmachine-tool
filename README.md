@@ -18,5 +18,6 @@ https://archive.org/help/json.php
 ## Tests
 
 ## Contributors
+Evan Uribe
 
 ## License
