@@ -15,9 +15,4 @@ Install the html document in the root location of your website
 ## API Reference
 https://archive.org/help/json.php
 
-## Tests
 
-## Contributors
-Evan Uribe
-
-## License
